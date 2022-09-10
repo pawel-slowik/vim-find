@@ -23,18 +23,18 @@ function! find#Find(pattern) abort
 	let pattern = escape(a:pattern, '%#') " see :help cmdline-special
 	let pattern = shellescape(pattern)
 	try
-		let grepCommand = 'lgrep! -F ' . pattern . ' .'
+		let grepCommand = 'grep! -F ' . pattern . ' .'
 		silent execute grepCommand
 	catch
 		call find#FindWarning('grep failed')
 		return
 	endtry
-	let res_list = getloclist(0)
+	let res_list = getqflist()
 	if empty(res_list)
 		call find#FindWarning("no matches for '" . a:pattern . "'")
 		return
 	endif
-	lopen
+	copen
 	redraw!
 endfunction
 
